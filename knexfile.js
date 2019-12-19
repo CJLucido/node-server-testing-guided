@@ -13,6 +13,11 @@ module.exports = {
     seeds: {
       directory: './data/seeds',
     },
+    pool: {
+      afterCreate: (conn,done)=>{//make sure this is in production object too later
+        conn.run('PRAGMA foreign_keys = ON', done)
+      }
+    }
   },
   testing: {
     client: 'sqlite3',
@@ -26,5 +31,21 @@ module.exports = {
     seeds: {
       directory: './data/seeds',
     },
+    pool: {
+      afterCreate: (conn,done)=>{//make sure this is in production object too later
+        conn.run('PRAGMA foreign_keys = ON', done)
+      }
+    }
   },
+  production: {
+    client: 'pg', //talking to postgres
+    //don't need useNullAsDefault for postgres
+    connection: process.env.DATABASE_URL,
+  },
+  migrations: {
+    directory: './data/migrations',
+  },
+  seeds: {
+    directory: './data/seeds',
+  }
 };

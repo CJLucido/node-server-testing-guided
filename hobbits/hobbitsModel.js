@@ -9,7 +9,7 @@ module.exports = {
 };
 
 async function insert(hobbit) {
-  return null;
+  return db('hobbits').insert(hobbit).returning('id'); //returning is the same as passing the second argument in .insert
 }
 
 async function update(id, changes) {
